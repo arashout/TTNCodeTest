@@ -1,0 +1,11 @@
+# Certificate
+*.pem 
+
+# Go Binaries
+*.exe 
+debug
+
+#Secret configuration
+.devenv.json 
+
+.vscode/
