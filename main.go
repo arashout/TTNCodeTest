@@ -36,7 +36,7 @@ func main() {
 	for message := range uplink {
 		jsonData := JSONStringify(message.PayloadFields)
 		log.Printf("%s: received uplink %s", cred.ClientName, jsonData)
-		osc.SendDataToTopic(jsonData)
+		go osc.SendDataToTopic(jsonData)
 
 		// This part can be removed if you have a safe exit procedure
 		// Maybe capture ctrl-c?
