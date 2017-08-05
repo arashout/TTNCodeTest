@@ -36,6 +36,7 @@ func (osc *OpenSensorClient) SendDataToTopic(jsonData string) {
 	}
 	requestURL := osc.buildRequestURL()
 
+	// Build Request
 	req, err := http.NewRequest("POST", requestURL.String(), bytes.NewBuffer(jsonPayload))
 	if err != nil {
 		log.Fatalf("Failed to create request: %s", err.Error())
