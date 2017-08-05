@@ -16,10 +16,11 @@ type Credentials struct {
 	OpenSensorAPIKey         string `json:"openSensorAPIKey"`
 	OpenSensorClientID       string `json:"openSensorClientId"`
 	OpenSensorClientPassword string `json:"openSensorClientPassword"`
+	OpenSensorTopicURL       string `json:"openSensorTopicUrl"`
 }
 
 const (
-	sdkClientName    = "my-amazing-app"
+	sdkClientName    = "TTN_Code_Test_App"
 	sdkClientVersion = "2.0.5"
 	credFilePath     = ".devenv.json"
 )
@@ -59,7 +60,11 @@ func main() {
 		log.WithError(err).Fatalf("%s: could not subscribe to uplink messages", cred.ClientName)
 	}
 
+	osc := InitializeOpenSensorClient(&cred)
 	for message := range uplink {
-		log.Infof("%s: received uplink %s", cred.ClientName, JSONStringify(message.PayloadFields))
+		jsonData := JSONStringify(message.PayloadFields)
+		log.Infof("%s: received uplink %s", cred.ClientName, jsonData)
+		osc.SendDataToTopic(jsonData)
 	}
+
 }
